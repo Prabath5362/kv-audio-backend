@@ -24,12 +24,23 @@ export function addProduct(req, res) {
             res.json({
                 message: "Product add success ✅"
             })
-        }).catch((e)=>{
-             res.json({
-                message: "Product couldn't add error: "+e
+        }).catch((e) => {
+            res.json({
+                message: "Product couldn't add error: " + e
             })
         })
 
 
     }
+}
+
+
+export function getProduct(req, res) {
+    Product.find().then((result) => {
+        res.json(result);
+    }).catch((e) => {
+        res.json({
+            message: "Product fetch error: " + e
+        })
+    })
 }
