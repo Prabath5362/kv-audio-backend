@@ -100,3 +100,33 @@ export function deleteReview(req,res){
     }
 
 }
+
+export function approveReview(req, res) {
+    if(req.user == null){
+        res.status(401).json({
+            message: "Login first and try again"
+        })
+        return;
+    }
+
+    if (req.user.role != "admin") {
+        res.status(401).json({
+            message: "You are not authorized to perform this task"
+        })
+        return;
+    }
+
+    Review.updateOne({
+        email: req.params.email
+    }, {
+        isApproved: true
+    }).then(() => {
+        res.json({
+            message: "Review approve success ✅"
+        })
+    }).catch((e) => {
+        res.json({
+            message: "Review is not approved error: " + e
+        })
+    })
+}
