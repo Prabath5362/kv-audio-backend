@@ -50,3 +50,53 @@ export function getReviews(req,res){
         })
 
 }
+
+export function deleteReview(req,res){
+    // we use url variable (req.params.xyz)
+    const deleteEmail = req.params.email;
+
+    if(req.user == null){
+        res.status(401).json({
+            message: "Login first and try again"
+        })
+        null;
+    }
+
+    if(req.user.role == "admin"){
+        Review.deleteOne({
+            email: deleteEmail
+        }).then(()=>{
+            res.json({
+                message: "Review deleted success ✅"
+            })
+        }).catch((e)=>{
+            res.status(500).json({
+                message: "Review couldn't deleted, error: "+e
+            })
+        })
+        return;
+    }
+
+    if(req.user.role == "customer"){
+        if(deleteEmail != req.user.email){
+            res.status(500).json({
+                message: "You are not able to delete others review"
+            })
+            return;
+        }
+
+        Review.deleteOne({
+            email: deleteEmail
+        }).then(()=>{
+            res.json({
+                message: "Review deleted success ✅"
+            })
+        }).catch((e)=>{
+            res.status(500).json({
+                message: "Review couldn't deleted, error: "+e
+            })
+        })
+
+    }
+
+}
