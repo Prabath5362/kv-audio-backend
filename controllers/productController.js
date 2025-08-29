@@ -34,8 +34,20 @@ export async function addProduct(req, res) {
 
 export async function getProduct(req, res) {
     try {
-        const result = await Product.find();
+        if (req.user == null || req.user.role != "admin") {
+            const result = await Product.find({
+                availability: true
+            });
+            res.json(result);
+            return;
+        }
+
+        if(req.user.role == "admin"){
+            const result = await Product.find();
         res.json(result);
+        }
+
+
     } catch (e) {
         res.json({
             message: "Product fetch error: " + e
