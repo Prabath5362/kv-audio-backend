@@ -54,7 +54,8 @@ export async function loginUser(req, res) {
             firstName: user.firstName,
             lastName: user.lastName,
             profilePicture: user.profilePicture,
-            role: user.role
+            role: user.role,
+            phone: user.phone
         }, process.env.JWT_SECRET);
 
         res.json({

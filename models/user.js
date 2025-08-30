@@ -47,4 +47,28 @@ const userSchema = mongoose.Schema({
 
 const User = mongoose.model("users",userSchema);
 
+export function isUserNull(req){
+    if(req.user == null){
+        return true
+    }else{
+        return false;
+    }
+}
+
+export function isUserAdmin(req){
+    if(req.user.role == "admin"){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+export function isUserCustomer(req){
+    if(req.user.role == "customer"){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 export default User;

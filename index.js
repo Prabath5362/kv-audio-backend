@@ -6,6 +6,7 @@ import userRouter from "./routes/userRoute.js";
 import jwt from "jsonwebtoken";
 import productRouter from "./routes/productRoute.js";
 import reviewRouter from "./routes/reviewRoute.js";
+import inquiryRouter from "./routes/inquiryRoute.js";
 
 const app = express();
 dotenv.config();
@@ -40,6 +41,7 @@ mongoose.connect(process.env.MONGO_URL).then(() => {
 app.use("/api/user", userRouter);
 app.use("/api/product",productRouter);
 app.use("/api/review",reviewRouter);
+app.use("/api/inquiry",inquiryRouter);
 
 app.listen(3000, () => {
     console.log("Server running on port 3000");

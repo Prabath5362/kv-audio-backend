@@ -12,9 +12,9 @@ const productSchema = mongoose.Schema({
         required: true
     },
     image: {
-        type: String,
+        type: [String],
         required: true,
-        default: "https://i.ibb.co/Pz4vzhTB/steptodown-com797046.jpg"
+        default: ["https://i.ibb.co/Pz4vzhTB/steptodown-com797046.jpg"]
     },
     price: {
         type: String,
