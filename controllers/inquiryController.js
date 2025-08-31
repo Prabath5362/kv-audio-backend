@@ -117,3 +117,58 @@ export async function deleteInquiry(req, res) {
         );
     }
 }
+
+export async function updateInqury(req, res) {
+    try {
+        if (isUserNull(req)) {
+            return res.status(401).json({ message: "Login first to perform this task" });
+        }
+
+        if(isUserAdmin(req)){
+            const updateId = req.params.id;
+            const inquiryData = req.body;
+            inquiryData.isResponsed = true;
+
+            const inquiry = await Inquiry.updateOne({
+                id: updateId
+            },inquiryData)
+            res.json({ message: "Inquiry updated successfully ✅" });
+    
+            return;
+        }
+
+        if(isUserCustomer(req)){
+            const updateId = req.params.id;
+            const inquiryData = req.body;
+
+            const inquiry = await Inquiry.findOne({
+                id: updateId
+            });
+
+            if(inquiry.email == req.user.email){
+                await Inquiry.updateOne({
+                    id: updateId
+                },{
+                    message: inquiryData.message,
+                    isResponsed: false,
+                    response: ""
+                })
+                res.json({ message: "Inquiry updated successfully ✅" });
+            }else{
+                 return res.status(401).json({ message: "You are not able to update others inquiries" });
+            }
+
+
+            return res.status(401).json({ message: "You are not able to update others inquiries" });
+        }
+
+
+    } catch (e) {
+        res.status(500).json(
+            { message: "Error updtae inquiries: " + e }
+        );
+    }
+
+
+
+}
