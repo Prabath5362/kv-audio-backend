@@ -46,6 +46,9 @@ app.use("/api/user", userRouter);
 app.use("/api/product",productRouter);
 app.use("/api/review",reviewRouter);
 app.use("/api/inquiry",inquiryRouter);
+app.get("/", (req, res) => {
+    res.send("Backend is running!");
+});
 
 app.listen(3000, () => {
     console.log("Server running on port 3000");
