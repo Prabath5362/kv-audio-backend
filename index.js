@@ -47,7 +47,7 @@ app.use("/api/product",productRouter);
 app.use("/api/review",reviewRouter);
 app.use("/api/inquiry",inquiryRouter);
 app.get("/", (req, res) => {
-    res.send("Backend is running!");
+    res.send("Backend is running Successfully ✅!");
 });
 
 app.listen(3000, () => {
