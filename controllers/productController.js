@@ -26,7 +26,7 @@ export async function addProduct(req, res) {
             });
         } catch (e) {
             res.status(500).json({
-                message: "Product couldn't add error: " + e
+                message: "Product couldn't add: "+e.message
             });
         }
     }

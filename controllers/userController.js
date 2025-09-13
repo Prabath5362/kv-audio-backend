@@ -40,7 +40,7 @@ export async function loginUser(req, res) {
     });
 
     if (user == null) {
-        res.json({
+        res.status(404).json({
             message: "User not found, Register first"
         })
         return;
@@ -60,16 +60,17 @@ export async function loginUser(req, res) {
 
         res.json({
             message: "Login Success ✅",
-            token: token
+            token: token,
+            role: user.role
         })
     } else {
-        res.json({
+        res.status(401).json({
             message: "Password not matched"
         })
     }
     }
     catch(e){
-         res.json({
+         res.status(500).json({
             message: "Login failed :" + e
         })
     }

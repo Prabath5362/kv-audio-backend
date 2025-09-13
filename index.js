@@ -7,10 +7,14 @@ import jwt from "jsonwebtoken";
 import productRouter from "./routes/productRoute.js";
 import reviewRouter from "./routes/reviewRoute.js";
 import inquiryRouter from "./routes/inquiryRoute.js";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
+
+app.use(cors());
 app.use(bodyParser.json());
+
 
 app.use((req, res, next) => {
     let token = req.header("Authorization");
